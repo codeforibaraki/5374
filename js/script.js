@@ -473,7 +473,7 @@ $(function() {
             "</div>" +
             '<div id="collapse' + i + '" class="accordion-body collapse">' +
             '<div class="accordion-inner">' +
-            description.description + "<br />" + target_tag +
+            '<div class="accordion-description">' + description.description + '<br /></div>' + target_tag +
             '<div class="targetDays"></div></div>' +
             "</div>" +
             "</div>";
