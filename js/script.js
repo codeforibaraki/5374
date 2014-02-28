@@ -278,8 +278,11 @@ $(function() {
   function csvToArray(filename, cb) {
     $.get(filename, function(csvdata) {
       //CSVのパース作業
-      var csvdata = csvdata.replace("\r/gm", ""),
-          line = csvdata.split("\n"),
+      //CRの解析ミスがあった箇所を修正しました。
+      //以前のコードだとCRが残ったままになります。
+      // var csvdata = csvdata.replace("\r/gm", ""),
+       csvdata = csvdata.replace(/\r/gm, "");
+      var line = csvdata.split("\n"),
           ret = [];
       for (var i in line) {
         //空行はスルーする。
@@ -394,9 +397,13 @@ $(function() {
     areaModel.calcMostRect();
     //トラッシュの近い順にソートします。
     areaModel.sortTrash();
-
     var accordion_height = window.innerHeight / descriptions.length;
-    if (accordion_height<100) {accordion_height=100;};
+    if(descriptions.length > 5){
+      if (accordion_height < 100) {
+        accordion_height = 100;
+      }
+    }
+    
     var styleHTML = "";
     var accordionHTML = "";
     //アコーディオンの分類から対応の計算を行います。
@@ -405,7 +412,7 @@ $(function() {
 
       for (var d_no in descriptions) {
         var description = descriptions[d_no];
-       if (description.label != trash.label) {
+        if (description.label != trash.label) {
           continue;
         }
 
@@ -426,7 +433,8 @@ $(function() {
               target_tag += "<ul>";
             }
 
-            target_tag += "<li>" + target.name + "</li>";
+            target_tag += '<li style="list-style:none;">' + target.name + "</li>";
+            target_tag += '<p class="note">' + target.notice + "</p>";
           }
 
           target_tag += "</ul>";
