@@ -67,6 +67,8 @@ a.accordion-toggle-top:hover{
 }
 .accordion-group-top{background-color:  #ffffff;}
 
+.accordion-description {color:#ffffff;}
+
 .accordion-inner ul {color:#ffffff;}
 
 #accordion2 {display: none;}
