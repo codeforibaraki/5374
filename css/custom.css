@@ -65,7 +65,7 @@ a.accordion-toggle-top:hover{
 	color: #000000;
 	
 }
-.accordion-group-top{background-color:  #ffffff;}
+.accordion-group-top{background-color:  #fafafa;}
 
 .accordion-description {color:#ffffff;}
 
@@ -73,12 +73,15 @@ a.accordion-toggle-top:hover{
 
 #accordion2 {display: none;}
 #accordion2 .accordion-inner {text-align: center}
-.date {} 
+
+.date {
+	font-size: 1.3em;
+} 
 
 #gps_area {margin-top: 5px;}
 
 .left-day{
-       font-size: 1.5em;
+       font-size: 2em;
        color: white;
        position: absolute;
        padding-left: 10px;
@@ -111,7 +114,8 @@ a,a:hover{
 	color: #ffffff;
 }
 .note{
-	font-size: 10px;
+	margin-left: 25px;
+	font-size: 1em;
 }
 #help{
 	margin-left: 5px;

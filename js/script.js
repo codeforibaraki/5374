@@ -5,6 +5,8 @@
 */
 var AreaModel = function() {
   this.label;
+  this.areaName;
+  this.placeName;
   this.centerName;
   this.center;
   this.trash = new Array();
@@ -241,8 +243,10 @@ var DescriptionModel = function(data) {
   this.label = data[0];
   this.sublabel = data[1];//not used
   this.description = data[2];//not used
-  this.styles = data[3];
-  this.background = data[4];
+  this.caution = data[3];
+  this.styles = data[4];
+  this.background = data[5];
+  this.border = data[6];
 
 }
 /**
@@ -271,8 +275,8 @@ $(function() {
     return localStorage.getItem("selected_area_name");
   }
 
-  function setSelectedAreaName(name) {
-    localStorage.setItem("selected_area_name", name);
+  function setSelectedAreaName(label_name) {
+    localStorage.setItem("selected_area_name", label_name);
   }
 
   function csvToArray(filename, cb) {
@@ -302,11 +306,13 @@ $(function() {
         var row = tmp[i];
         var area = new AreaModel();
         area.label = row[0];
-        area.centerName = row[1];
+        area.areaName = row[1];
+        area.placeName = row[2];
+        area.centerName = row[3];
 
         areaModels.push(area);
         //２列目以降の処理
-        for (var r = 2; r < 2 + MaxDescription; r++) {
+        for (var r = 4; r < 4 + MaxDescription; r++) {
           if (area_days_label[r]) {
             var trash = new TrashModel(area_days_label[r], row[r]);
             area.trash.push(trash);
@@ -338,11 +344,14 @@ $(function() {
         var select_html = "";
         select_html += '<option value="-1">地域を選択してください</option>';
         for (var row_index in areaModels) {
-          var area_name = areaModels[row_index].label;
-          var selected = (selected_name == area_name) ? 'selected="selected"' : "";
+          var label_name = areaModels[row_index].label;
+          var area_name = areaModels[row_index].areaName;
+          var place_name = areaModels[row_index].placeName;
+          var selected = (selected_name == label_name) ? 'selected="selected"' : "";
 
-          select_html += '<option value="' + row_index + '" ' + selected + " >" + area_name + "</option>";
+          select_html += '<optgroup label=""><option value="' + row_index + '" ' + selected + ' >【' + label_name + '｜' + area_name + '】：' + '（' + place_name + '）</option></optgroup>';
         }
+        // select_html += '</optgroup>'; // iOS の選択肢がすべて読めるようにするための工夫
 
         //デバッグ用
         if (typeof dump == "function") {
@@ -453,7 +462,7 @@ $(function() {
             leftDayText = leftDay + "日後";
           }
           
-          styleHTML += '#accordion-group' + d_no + '{background-color:  ' + description.background + ';} ';
+          styleHTML += '#accordion-group' + d_no + '{background-color:  ' + description.background + ';border-bottom: 1px solid ' + description.border + ';text-shadow: 0 0 1px ' + description.border + ', 0.1em 0.1em 0.2em #000;} ';
 
           accordionHTML +=
             '<div class="accordion-group" id="accordion-group' + d_no + '">' +
@@ -487,28 +496,32 @@ $(function() {
     $('html,body').animate({scrollTop: 0}, 'fast');
 
     //アコーディオンのラベル部分をクリックしたら  
-    $(".accordion-body").on("shown.bs.collapse", function() {
-      var body = $('body');
-      var accordion_offset = $($(this).parent().get(0)).offset().top;
-      body.animate({
-        scrollTop: accordion_offset
-      }, 50);
-    });
-    //アコーディオンの非表示部分をクリックしたら  
-    $(".accordion-body").on("hidden.bs.collapse", function() {
-      if ($(".in").length == 0) {
-        $("html, body").scrollTop(0);
-      }
-    });
+    // $(".accordion-body").on("shown.bs.collapse", function() {
+    //   var body = $('body');
+    //   var accordion_offset = $($(this).parent().get(0)).offset().top;
+    //   body.animate({
+    //     scrollTop: accordion_offset
+    //   }, 50);
+    // });
+    // //アコーディオンの非表示部分をクリックしたら  
+    // $(".accordion-body").on("hidden.bs.collapse", function() {
+    //   if ($(".in").length == 0) {
+    //     $("html, body").scrollTop(0);
+    //   }
+    // });
   }
 
   function onChangeSelect(row_index) {　
     if (row_index == -1) {
       $("#accordion").html("");
+      $("#selected_area").html("");
       setSelectedAreaName("");
       return;
     }
     setSelectedAreaName(areaModels[row_index].label);
+
+    $("#top_message").css("display", "none");
+    $("#selected_area").html("表示している対象地域：<br/><p>" + areaModels[row_index].areaName + "：<br/>" + areaModels[row_index].placeName + "</p>");
 
     if ($("#accordion").children().length === 0 && descriptions.length === 0) {
 
@@ -522,9 +535,9 @@ $(function() {
 
 
 
-  function getAreaIndex(area_name) {
+  function getAreaIndex(label_name) {
     for (var i in areaModels) {
-      if (areaModels[i].label == area_name) {
+      if (areaModels[i].label == label_name) {
         return i;
       }
     }
@@ -547,10 +560,10 @@ $(function() {
         longitude: position.coords.longitude
       }, function(data) {
         if (data.result == true) {
-          var area_name = data.candidate;
-          var index = getAreaIndex(area_name);
+          var label_name = data.candidate;
+          var index = getAreaIndex(label_name);
           $("#select_area").val(index).change();
-          alert(area_name + "が設定されました");
+          alert(label_name + "が設定されました");
         } else {
           alert(data.reason);
         }

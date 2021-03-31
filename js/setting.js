@@ -5,7 +5,7 @@
 
 const SVGLabel = false; // SVGイメージを使用するときは、True
 
-const MaxDescription = 9; // ごみの最大種類
+const MaxDescription = 11; // ごみの最大種類
 
 const MaxMonth = 3;
 

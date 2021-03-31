@@ -29,22 +29,22 @@
     </script>
   </head>
   <body>
-  <div class="notice_message">
+  <div id="top_message" class="notice_message">
     <h1>【重要なお知らせ】</h1>
-    <p>2021年4月（令和3年4月）よりゴミ処理施設が変更されます。<br/>新しい収集カレンダーに対応できるまでの間、こちらのゴミナシ（5374）アプリは正しい収集予定日を表示できません。<br/>従いまして、変更作業が完了するまでは茨城町より配布された新しいカレンダーをご利用ください。<br/>ご不便をおかけしますが宜しくお願いいたします。<br/><br/>コード・フォー・イバラキ代表 佐藤俊秀</p>
+    <h4 style="color: red;">4月以降の新しいカレンダーに対応いたしました。</h4>
+    <p>2021年4月（令和3年4月）よりゴミ処理施設が変更されます。<br/>それに伴いお住いの地域を改めてお選び頂くことでゴミナシ（5374）アプリはこれまで同様お使いいただけます。<br/>お手数をお掛けしますが宜しくお願いいたします。<br/><br/>コード・フォー・イバラキ代表 佐藤俊秀</p>
   </div>
   <style id="accordion-style" type="text/css"></style>
-  <div id="accordion"></div>
-  <select class="form-control" id="select_area"></select>
+  <div id="accordion"></div><div class="selected_areaName" id="selected_area"></div>
+  <label>次のＡ～Ｅの中からお住いの地域を選んでください。</label><select class="form-control" id="select_area"></select>
   <div class="accordion" id="accordion3">
     <div class="accordion-group-top">
       <div class="accordion-heading">
-        <a class="accordion-toggle-top" data-toggle="collapse" data-parent="#accordion3" href="#collapse3_0">5374.jpについて</a>
+        <a class="accordion-toggle-top" data-toggle="collapse" data-parent="#accordion3" href="#collapse3_0">茨城町版の5374.jpについて</a>
       </div>
-      <div id="collapse3_0" class="accordion-body collapse">
+      <div id="collapse3_0" class="accordion-body in">
         <div class="accordion-inner">
-          <div id="help">
-5374（ゴミナシ）.jpは、Code for Kanazawaによって開発されたアプリです。それをCode for Ibarakiが茨城町版に改良しました。
+          <div id="help">5374（ゴミナシ）.jpは、Code for Kanazawaによって開発されたアプリです。それをCode for Ibarakiが茨城町版に改良しました。
             <h2>目的</h2>
 「いつ、どのゴミが収集されているのか？」例えばお引っ越しをされた場合や、新しく町に住むことになった時、このアプリを使えば、すぐに分かるようにデザインされています。
             <h2>使い方</h2>
@@ -56,20 +56,14 @@
             <p>お住まいの地域を選択することで、ゴミ収集日を計算し近い順に表示されます。</p>
             <div id="caption">
               <h4>提供されるゴミ情報について</h4>
-              <p>茨城町が公開しているデータをもとにCode for Ibarakiがアプリに実装しました。</p>
+              <p>茨城町が公開しているデータをもとにCode for Ibarakiがアプリに組込みました。</p>
               <h4>ライセンスについて</h4>
               <p>本アプリ及びソースコードの著作権はCode for Kanazawaに帰属します。 但し、このソースコードはMPLのもと配布されています。MPLに従えば、どなたでも利用、改変、及び再配布が可能です。</p>
             </div>
-            <div id="cfk">
-              <h3>Code for Kanazawaについて</h3>
-              <p>公式サイト<br /><a href="http://www.codeforkanazawa.org/" target="_blank" rel="nofollow" style=" color: #FF0000;text-decoration: underline;">http://www.codeforkanazawa.org/</a><br />
-5374(ゴミナシ).jp<br /><a href="http://5374.jp/" target="_blank" rel="nofollow" style=" color: #FF0000;text-decoration: underline;">http://5374.jp/</a>  
-              </p>
-            </div>
             <div id="cfi">
               <h3>Code for Ibaraki（コード・フォー・茨城）について</h3>
-              <p>公式サイト<br /><a href="http://codeforibaraki.org/" target="_blank" style=" color: #FF0000;text-decoration: underline;">http://codeforibaraki.org/</a>
-              </p>
+              <p>公式サイト<br /><a href="https://codeforibaraki.org/" target="_blank" style=" color: #FF0000;text-decoration: underline;">https://codeforibaraki.org/</a></p>
+              <p>5374(ゴミナシ).jp<br /><a href="http://5374.jp/" target="_blank" rel="nofollow" style=" color: #FF0000;text-decoration: underline;">http://5374.jp/</a></p>
             </div>
           </div>
         </div>
